@@ -4,7 +4,9 @@
 ///
 import 'dart:math' as math;
 import 'dart:typed_data';
-
+// import 'dart:io';
+// import 'package:filesize/filesize.dart';
+// import 'package:colorize/colorize.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:wechat_assets_picker/src/constants/constants.dart';
@@ -285,8 +287,8 @@ class AssetPickerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Load more assets.
-  /// 加载更多资源
+  // / Load more assets.
+  // / 加载更多资源
   Future<void> loadMoreAssets() async {
     final List<AssetEntity> assets = (await currentPathEntity.getAssetListPaged(
       currentAssetsListPage,
@@ -302,6 +304,7 @@ class AssetPickerProvider extends ChangeNotifier {
       currentAssets = tempList;
     }
   }
+
 
   /// Select asset.
   /// 选中资源

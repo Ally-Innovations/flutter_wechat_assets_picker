@@ -6,6 +6,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:toast/toast.dart';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -785,10 +786,23 @@ class _AssetPickerState extends State<AssetPicker> {
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () async {
-              if (selected) {
-                widget.provider.unSelectAsset(asset);
+                print('two..  \n');
+              const int divider = 1024;
+            const  int maxSize = divider * divider * 30;
+              final File fileItem = await asset.file;
+
+              final int size = await fileItem.length();
+              if (size <= maxSize) {
+                if (selected) {
+                  widget.provider.unSelectAsset(asset);
+                } else {
+                  widget.provider.selectAsset(asset);
+                }
               } else {
-                widget.provider.selectAsset(asset);
+                Toast.show('File too Large', context,
+                    backgroundColor: Colors.red,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM);
               }
             },
             child: AnimatedContainer(
@@ -820,14 +834,37 @@ class _AssetPickerState extends State<AssetPicker> {
           right: 0.0,
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () {
-              if (selected) {
-                widget.provider.unSelectAsset(asset);
-              } else {
-                if (isSingleAssetMode) {
-                  widget.provider.selectedAssets.clear();
+            onTap: () async {
+              print('one \n');
+              // if (selected) {
+              //   widget.provider.unSelectAsset(asset);
+              // } else {
+              // if (isSingleAssetMode) {
+              //   widget.provider.selectedAssets.clear();
+              // }
+
+              //   widget.provider.selectAsset(asset);
+              // }
+
+              const int divider = 1024;
+             const int maxSize = divider * divider * 30;
+              final File fileItem = await asset.file;
+
+              final int size = await fileItem.length();
+              if (size <= maxSize) {
+                if (selected) {
+                  widget.provider.unSelectAsset(asset);
+                } else {
+                  if (isSingleAssetMode) {
+                    widget.provider.selectedAssets.clear();
+                  }
+                  widget.provider.selectAsset(asset);
                 }
-                widget.provider.selectAsset(asset);
+              } else {
+                Toast.show('File too Large', context,
+                    backgroundColor: Colors.red,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM);
               }
             },
             child: Container(
