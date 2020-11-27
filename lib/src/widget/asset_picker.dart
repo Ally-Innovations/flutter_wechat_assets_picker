@@ -656,7 +656,7 @@ class _AssetPickerState extends State<AssetPicker> {
             gradient: LinearGradient(
               begin: AlignmentDirectional.bottomCenter,
               end: AlignmentDirectional.topCenter,
-              colors: <Color>[theme.dividerColor, Colors.transparent],
+              color: <Color>[theme.dividerColor, Colors.transparent],
             ),
           ),
           child: Align(
@@ -703,7 +703,7 @@ class _AssetPickerState extends State<AssetPicker> {
           gradient: LinearGradient(
             begin: AlignmentDirectional.bottomCenter,
             end: AlignmentDirectional.topCenter,
-            colors: <Color>[theme.dividerColor, Colors.transparent],
+            color: <Color>[theme.dividerColor, Colors.transparent],
           ),
         ),
         child: Padding(
@@ -737,7 +737,7 @@ class _AssetPickerState extends State<AssetPicker> {
           gradient: LinearGradient(
             begin: AlignmentDirectional.bottomCenter,
             end: AlignmentDirectional.topCenter,
-            colors: <Color>[theme.dividerColor, Colors.transparent],
+            color: <Color>[theme.dividerColor, Colors.transparent],
           ),
         ),
         child: Row(
@@ -1055,6 +1055,7 @@ class _AssetPickerState extends State<AssetPicker> {
         builder = const SizedBox.shrink();
         break;
     }
+
     return Stack(
       children: <Widget>[
         builder,
@@ -1083,7 +1084,7 @@ class _AssetPickerState extends State<AssetPicker> {
               gradient: LinearGradient(
                 begin: AlignmentDirectional.topCenter,
                 end: AlignmentDirectional.bottomCenter,
-                colors: <Color>[theme.dividerColor, Colors.transparent],
+                color: <Color>[theme.dividerColor, Colors.transparent],
               ),
             ),
             child: Padding(
@@ -1236,7 +1237,7 @@ class _AssetPickerState extends State<AssetPicker> {
         centerTitle: isAppleOS,
         title: pathEntitySelector,
         leading: backButton(context),
-        actions: !isAppleOS ? <Widget>[confirmButton(context)] : null,
+        actions: !isAppleOS ? <Widget>[confirmButton(context) , Text('One love'),] : null,
         actionsPadding: const EdgeInsets.only(right: 14.0),
         blurRadius: isAppleOS ? appleOSBlurRadius : 0.0,
       );
@@ -1307,7 +1308,7 @@ class _AssetPickerState extends State<AssetPicker> {
                       RepaintBoundary(
                         child: Column(
                           children: <Widget>[
-                            Expanded(child: assetsGrid(context)),
+                            Expanded(child:  assetsGrid(context)),
                             if (!isSingleAssetMode) bottomActionBar(context),
                           ],
                         ),
@@ -1333,7 +1334,7 @@ class _AssetPickerState extends State<AssetPicker> {
           value: widget.provider,
           child: Material(
             color: theme.canvasColor,
-            child: isAppleOS ? appleOSLayout(context) : androidLayout(context),
+            child: isAppleOS ? appleOSLayout(context) :  androidLayout(context),
           ),
         ),
       ),

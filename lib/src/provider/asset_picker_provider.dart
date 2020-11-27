@@ -4,9 +4,8 @@
 ///
 import 'dart:math' as math;
 import 'dart:typed_data';
-// import 'dart:io';
-// import 'package:filesize/filesize.dart';
-// import 'package:colorize/colorize.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:wechat_assets_picker/src/constants/constants.dart';
@@ -280,10 +279,36 @@ class AssetPickerProvider extends ChangeNotifier {
   /// Get assets under the specific path entity.
   /// 获取指定路径下的资源
   Future<void> getAssetsFromEntity(int page, AssetPathEntity pathEntity) async {
-    _currentAssets = (await pathEntity.getAssetListPaged(
+    // _currentAssets = (await pathEntity.getAssetListPaged(
+    //         page, pageSize ?? pathEntity.assetCount))
+    //     .toList();
+
+    final List<AssetEntity> tempList = (await pathEntity.getAssetListPaged(
             page, pageSize ?? pathEntity.assetCount))
         .toList();
+
+    final List<AssetEntity> tempAssets = <AssetEntity>[];
+    const int divider = 1024;
+
+    for (final AssetEntity item in tempList) {
+      if (await item.exists) {
+        final File fileItem = await item.file;
+        final int size = await fileItem.length();
+        if (size < divider * divider * divider * 30) {
+          tempAssets.add(item);
+        } else {
+          print('File too large ..............');
+        }
+      } else {
+        print('File does not exist ');
+      }
+    }
+
+// set to list
+    _currentAssets = tempAssets;
+    
     _hasAssetsToDisplay = currentAssets?.isNotEmpty ?? false;
+
     notifyListeners();
   }
 
@@ -298,9 +323,26 @@ class AssetPickerProvider extends ChangeNotifier {
     if (assets.isNotEmpty && currentAssets.contains(assets[0])) {
       return;
     } else {
+      final List<AssetEntity> tempAssets = <AssetEntity>[];
+      const int divider = 1024;
+
+      for (final AssetEntity item in assets) {
+        if (await item.exists) {
+          final File fileItem = await item.file;
+          final int size = await fileItem.length();
+          if (size < divider * divider * divider * 30) {
+            tempAssets.add(item);
+          } else {
+            print('File too large ..............');
+          }
+        } else {
+          print('File does not exist ');
+        }
+      }
+
       final List<AssetEntity> tempList = <AssetEntity>[];
       tempList.addAll(_currentAssets);
-      tempList.addAll(assets);
+      tempList.addAll(tempAssets);
       currentAssets = tempList;
     }
   }
