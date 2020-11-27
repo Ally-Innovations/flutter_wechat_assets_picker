@@ -656,7 +656,7 @@ class _AssetPickerState extends State<AssetPicker> {
             gradient: LinearGradient(
               begin: AlignmentDirectional.bottomCenter,
               end: AlignmentDirectional.topCenter,
-              color: <Color>[theme.dividerColor, Colors.transparent],
+              colors: <Color>[theme.dividerColor, Colors.transparent],
             ),
           ),
           child: Align(
@@ -703,7 +703,7 @@ class _AssetPickerState extends State<AssetPicker> {
           gradient: LinearGradient(
             begin: AlignmentDirectional.bottomCenter,
             end: AlignmentDirectional.topCenter,
-            color: <Color>[theme.dividerColor, Colors.transparent],
+            colors: <Color>[theme.dividerColor, Colors.transparent],
           ),
         ),
         child: Padding(
@@ -737,7 +737,7 @@ class _AssetPickerState extends State<AssetPicker> {
           gradient: LinearGradient(
             begin: AlignmentDirectional.bottomCenter,
             end: AlignmentDirectional.topCenter,
-            color: <Color>[theme.dividerColor, Colors.transparent],
+            colors: <Color>[theme.dividerColor, Colors.transparent],
           ),
         ),
         child: Row(
@@ -1084,7 +1084,7 @@ class _AssetPickerState extends State<AssetPicker> {
               gradient: LinearGradient(
                 begin: AlignmentDirectional.topCenter,
                 end: AlignmentDirectional.bottomCenter,
-                color: <Color>[theme.dividerColor, Colors.transparent],
+                colors: <Color>[theme.dividerColor, Colors.transparent],
               ),
             ),
             child: Padding(
