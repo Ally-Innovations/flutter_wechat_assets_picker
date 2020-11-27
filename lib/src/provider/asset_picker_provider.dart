@@ -4,7 +4,6 @@
 ///
 import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -276,44 +275,18 @@ class AssetPickerProvider extends ChangeNotifier {
     return assetData;
   }
 
-  /// Get assets under the specific path entity.
+   /// Get assets under the specific path entity.
   /// 获取指定路径下的资源
   Future<void> getAssetsFromEntity(int page, AssetPathEntity pathEntity) async {
-    // _currentAssets = (await pathEntity.getAssetListPaged(
-    //         page, pageSize ?? pathEntity.assetCount))
-    //     .toList();
-
-    final List<AssetEntity> tempList = (await pathEntity.getAssetListPaged(
+    _currentAssets = (await pathEntity.getAssetListPaged(
             page, pageSize ?? pathEntity.assetCount))
         .toList();
-
-    final List<AssetEntity> tempAssets = <AssetEntity>[];
-    const int divider = 1024;
-
-    for (final AssetEntity item in tempList) {
-      if (await item.exists) {
-        final File fileItem = await item.file;
-        final int size = await fileItem.length();
-        if (size < divider * divider * divider * 30) {
-          tempAssets.add(item);
-        } else {
-          print('File too large ..............');
-        }
-      } else {
-        print('File does not exist ');
-      }
-    }
-
-// set to list
-    _currentAssets = tempAssets;
-    
     _hasAssetsToDisplay = currentAssets?.isNotEmpty ?? false;
-
     notifyListeners();
   }
 
-  // / Load more assets.
-  // / 加载更多资源
+  /// Load more assets.
+  /// 加载更多资源
   Future<void> loadMoreAssets() async {
     final List<AssetEntity> assets = (await currentPathEntity.getAssetListPaged(
       currentAssetsListPage,
@@ -323,31 +296,12 @@ class AssetPickerProvider extends ChangeNotifier {
     if (assets.isNotEmpty && currentAssets.contains(assets[0])) {
       return;
     } else {
-      final List<AssetEntity> tempAssets = <AssetEntity>[];
-      const int divider = 1024;
-
-      for (final AssetEntity item in assets) {
-        if (await item.exists) {
-          final File fileItem = await item.file;
-          final int size = await fileItem.length();
-          if (size < divider * divider * divider * 30) {
-            tempAssets.add(item);
-          } else {
-            print('File too large ..............');
-          }
-        } else {
-          print('File does not exist ');
-        }
-      }
-
       final List<AssetEntity> tempList = <AssetEntity>[];
       tempList.addAll(_currentAssets);
-      tempList.addAll(tempAssets);
+      tempList.addAll(assets);
       currentAssets = tempList;
     }
   }
-
-
   /// Select asset.
   /// 选中资源
   void selectAsset(AssetEntity item) {

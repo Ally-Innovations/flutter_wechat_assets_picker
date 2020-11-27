@@ -1237,7 +1237,7 @@ class _AssetPickerState extends State<AssetPicker> {
         centerTitle: isAppleOS,
         title: pathEntitySelector,
         leading: backButton(context),
-        actions: !isAppleOS ? <Widget>[confirmButton(context) , Text('One love'),] : null,
+        actions: !isAppleOS ? <Widget>[confirmButton(context) ,] : null,
         actionsPadding: const EdgeInsets.only(right: 14.0),
         blurRadius: isAppleOS ? appleOSBlurRadius : 0.0,
       );
