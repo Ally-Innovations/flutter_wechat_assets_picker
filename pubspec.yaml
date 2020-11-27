@@ -14,7 +14,8 @@ dependencies:
   extended_image: ^1.2.0
   photo_manager: ^0.5.8
   provider: ^4.3.1
-  video_player: ^0.11.0
-  filesize: ^1.0.4
+  # video_player: ^0.11.0
+  # filesize: ^1.0.4
+  video_player: ">=0.11.0 <2.0.0"
   toast: ^0.1.5
-  colorize: 2.0.0
+  # colorize: 2.0.0
