@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   extended_image: ^1.1.2
-  photo_manager: ">=0.6.0-dev.5 <2.0.0"
+  photo_manager: 0.5.8
   provider: ^4.3.2+2
   toast: ^0.1.5
   video_player: ">=0.11.0 <2.0.0"
