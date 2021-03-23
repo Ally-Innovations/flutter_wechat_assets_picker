@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  extended_image: ^2.0.0
+  extended_image: ^3.0.0
   photo_manager: ^1.0.3
   # provider: ^4.3.2+2
   provider: ^5.0.0
